@@ -30,9 +30,9 @@ public class TestParse {
         int customer = customerRep.Get(inputId);
         int order = orderRep.Get(inputId);
         
-        System.out.print(">>Input id: user");
-        System.out.print(">>Input id: customer");
-        System.out.print(">>Input id: order");
+        System.out.println(">>Input id: " + user);
+        System.out.println(">>Input id: " + customer);
+        System.out.println(">>Input id: " + order);
     }
     
 }
