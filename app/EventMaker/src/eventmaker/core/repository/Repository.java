@@ -5,8 +5,12 @@
  */
 package eventmaker.core.repository;
 
+import eventmaker.core.repository.exceptions.RepositoryException;
+import eventmaker.core.repository.exceptions.NotFoundException;
 import eventmaker.data.Entity;
 import eventmaker.data.IdentityMap;
+import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
+import eventmaker.data.exceptions.NotRegisteredRepositoryException;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -14,9 +18,9 @@ import org.apache.commons.lang3.Validate;
  * @author dsvma_000
  */
 public class Repository<T extends Entity> {
-    protected final IdentityMap<T> identityMap = new IdentityMap<T>();
+    /*protected final IdentityMap<T> identityMap = new IdentityMap<T>();
     
-    public T get(final Object identifier) throws RepositoryException {
+    public T get(final Object identifier) throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException {
         Validate.notNull(identifier, "identifier required");
         
         T entity = identityMap.get(identifier);
@@ -33,7 +37,7 @@ public class Repository<T extends Entity> {
         return entity;
     }
     
-    public void store(final T entity) throws RepositoryException {
+    public void store(final T entity) throws RepositoryException, DifferentObjectInIdentityMapException {
         Validate.notNull(entity, "entity required");
         
         if (identityMap.isKnown(entity)) {
@@ -46,10 +50,10 @@ public class Repository<T extends Entity> {
         }
     }
     
-    public void remove(final T entity) throws RepositoryException {
+    public void remove(final T entity) throws RepositoryException, NotRegisteredRepositoryException, DifferentObjectInIdentityMapException {
         Validate.notNull(entity, "entity required");
         
         identityMap.forget(entity);
         delete(entity);
-    }
+    }*/
 }

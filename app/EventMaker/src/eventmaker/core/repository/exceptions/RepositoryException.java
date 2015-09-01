@@ -3,18 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eventmaker.data;
+package eventmaker.core.repository.exceptions;
 
 /**
  *
  * @author dsvma_000
  */
-public class Event extends Entity {
-    private String id;
-
-    @Override
-    public Object getIdentifier() {
-        return id;
-    }
+public class RepositoryException extends Throwable {
     
 }

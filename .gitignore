@@ -7,3 +7,4 @@ lib/
 nbactions.xml
 nb-configuration.xml
 .nb-gradle/
+/app/EventMaker/nbproject/private/

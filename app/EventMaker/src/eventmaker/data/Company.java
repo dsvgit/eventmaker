@@ -61,7 +61,7 @@ public class Company extends Entity {
     }      
 
     @Override
-    Object getIdentifier() {
+    public Object getIdentifier() {
         return id;
     }
 }
