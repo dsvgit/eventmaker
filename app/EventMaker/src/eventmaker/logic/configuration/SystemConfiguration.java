@@ -10,5 +10,27 @@ package eventmaker.logic.configuration;
  * @author dsvma_000
  */
 public class SystemConfiguration {
+    private final String name;
+    private final String dbUrl;
+    private final String dbName;
+
+    public SystemConfiguration(final String name, final String dbUrl, final String dbName) {
+        this.name = name;
+        this.dbUrl = dbUrl;
+        this.dbName = dbName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDbUrl() {
+        return dbUrl;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+    
     
 }
