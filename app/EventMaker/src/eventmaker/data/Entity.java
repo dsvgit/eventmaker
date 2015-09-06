@@ -9,7 +9,7 @@ package eventmaker.data;
  *
  * @author dsvma_000
  */
-public abstract class Entity {
+public abstract class Entity {    
     public abstract Object getIdentifier();
 
     @Override
@@ -24,8 +24,5 @@ public abstract class Entity {
     @Override
     public int hashCode() {
         return getIdentifier().hashCode();
-    }
-    
-    
-    
+    }    
 }

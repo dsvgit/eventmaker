@@ -1,5 +1,6 @@
 package eventmaker.data;
 
+import eventmaker.data.shared.ValueObject;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +14,7 @@ public class Company extends Entity {
     @Id
     @GeneratedValue
     @Column(name="id")
-    private String id;
+    private Integer id;
     
     @Column(name="name")
     private String name;
@@ -22,12 +23,12 @@ public class Company extends Entity {
     private String description;
     
     @Column(name="organizer_id")
-    private String organazer;
+    private int organaizer;
     
     public Company() {
     }
     
-    public Company(final String id,final String name,final String description,final String organazer) {
+    public Company(final int id,final String name,final String description,final int organazer) {
         Validate.notNull(id, "id is required");
         Validate.notNull(name, "name is required");
         Validate.notNull(description, "description is required");
@@ -36,22 +37,22 @@ public class Company extends Entity {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.organazer = organazer;
+        this.organaizer = organazer;
     }
     
-    public String getOrganazer() {
-        return organazer;
+    public int getOrganazer() {
+        return organaizer;
     }
 
-    public void setOrganazer(String organazer) {
-        this.organazer = organazer;
+    public void setOrganazer(int organazer) {
+        this.organaizer = organazer;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
