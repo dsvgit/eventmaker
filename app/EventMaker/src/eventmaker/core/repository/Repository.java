@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eventmaker.core.repository;
 
 import eventmaker.core.repository.exceptions.RepositoryException;
@@ -13,11 +8,7 @@ import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
 import eventmaker.data.exceptions.NotRegisteredRepositoryException;
 import org.apache.commons.lang3.Validate;
 
-/**
- *
- * @author dsvma_000
- */
-public class Repository<T extends Entity> {
+public abstract class Repository<T extends Entity> {
     /*protected final IdentityMap<T> identityMap = new IdentityMap<T>();
     
     public T get(final Object identifier) throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException {

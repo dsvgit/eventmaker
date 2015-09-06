@@ -1,21 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eventmaker;
 
-/**
- *
- * @author dsvma_000
- */
+import eventmaker.data.Company;
+import eventmaker.hibernate.HibernateUtil;
+import java.util.Iterator;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 public class EventMaker {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        SessionFactory sessFact = HibernateUtil.getSessionFactory();
+        Session session = sessFact.getCurrentSession();
+        org.hibernate.Transaction tr = session.beginTransaction();
+
+        String strSql ="from Company o";
+        Query query = session.createQuery(strSql);
+        List lst = query.list();
+        for(Iterator it=lst.iterator();it.hasNext();){
+
+                Company emp=(Company)it.next();
+                System.out.println("Hello: " + emp.getName());
+        }
+
+        tr.commit();
+        System.out.println("Data displayed");
+        sessFact.close();
     }
     
 }

@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eventmaker.logic.configuration;
 
 import eventmaker.core.utils.FileUtils;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,16 +10,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 
-
-
-/**
- *
- * @author dsvma_000
- */
 public class ConfigurationManager {
     private SystemConfiguration config;
     
@@ -44,9 +31,7 @@ public class ConfigurationManager {
                         Object obj = parser.parse(json);
                         JSONObject jsonObj = (JSONObject) obj;
                         config = new SystemConfiguration(
-                                jsonObj.get("name").toString(),
-                                jsonObj.get("dbUrl").toString(),
-                                jsonObj.get("dbName").toString()
+                                jsonObj.get("name").toString()
                         );
                     } catch (ParseException e) {
 
@@ -55,13 +40,13 @@ public class ConfigurationManager {
 
                 }
             } else {
-                config = new SystemConfiguration("eventmaker", "", "");
+                config = new SystemConfiguration(
+                        "eventmaker"
+                );
                 
                 JSONObject obj = new JSONObject();
                 
                 obj.put("name", config.getName());
-                obj.put("dbUrl", config.getDbUrl());
-                obj.put("dbName", config.getDbName());
                 
                 try {
                     PrintWriter writer = new PrintWriter(configFile.toString(), "UTF-8");
