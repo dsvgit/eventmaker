@@ -25,23 +25,23 @@ public class Company extends Entity {
     
     @ManyToOne
     @JoinColumn(name = "uid")
-    private User organaizer;
+    private Organizer organizer;
     
     public Company() {
     }
 
-    public Company(String name, String description, User organaizer) {
+    public Company(String name, String description, Organizer organaizer) {
         this.name = name;
         this.description = description;
-        this.organaizer = organaizer;
+        this.organizer = organaizer;
     }
     
-    public User getOrganazer() {
-        return organaizer;
+    public User getOrganizer() {
+        return organizer;
     }
 
-    public void setOrganazer(User organazer) {
-        this.organaizer = organazer;
+    public void setOrganazer(Organizer organazer) {
+        this.organizer = organazer;
     }
 
     public int getId() {

@@ -10,7 +10,7 @@ import org.hibernate.SessionFactory;
 public abstract class RepositoryBase<T extends Entity, ID extends Serializable> {
     
     protected Class<T> domainClass = getDomainClass();
-    SessionFactory sessFact;
+    protected SessionFactory sessFact;
     
     protected abstract Class<T> getDomainClass();
 

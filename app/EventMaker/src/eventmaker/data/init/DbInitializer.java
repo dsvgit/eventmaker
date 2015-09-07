@@ -9,6 +9,7 @@ import eventmaker.core.repository.exceptions.RepositoryException;
 import eventmaker.data.Category;
 import eventmaker.data.Company;
 import eventmaker.data.Event;
+import eventmaker.data.Organizer;
 import eventmaker.data.Registration;
 import eventmaker.data.User;
 import eventmaker.data.enums.ApproveRule;
@@ -35,11 +36,14 @@ public class DbInitializer {
         User u3 = new User("John", "White", "jwhite", "director");
         User u4 = new User("Jane", "Cooper", "ivan1", "director");
         
-        Company cmp1 = new Company("Coca-cola", "We produce cola", u1);
-        Company cmp2 = new Company("Pepsi", "We produce pepsi", u2);
-        Company cmp3 = new Company("Motorolla", "We produce phones", u2);
-        Company cmp4 = new Company("Nokia", "We produce phones", u3);
-        Company cmp5 = new Company("Ferarri", "We produce cars", u4);
+        Organizer org1 = new Organizer("Sergey", "Dedkov", "dsv", "director", "dsv.mail@yandex.ru");
+        Organizer org2 = new Organizer("Roman", "Smith", "rr", "1", "89086398518");
+        
+        Company cmp1 = new Company("Coca-cola", "We produce cola", org1);
+        Company cmp2 = new Company("Pepsi", "We produce pepsi", org2);
+        Company cmp3 = new Company("Motorolla", "We produce phones", org2);
+        Company cmp4 = new Company("Nokia", "We produce phones", org1);
+        Company cmp5 = new Company("Ferarri", "We produce cars", org2);
         
         Category cat1 = new Category("conference");
         Category cat2 = new Category("party");
@@ -71,7 +75,7 @@ public class DbInitializer {
                 PaymentState.PAID, u2);
         
         
-        _userRep.storeBatch(u1, u2, u3, u4);
+        _userRep.storeBatch(u1, u2, u3, u4, org1, org2);
         _cmpRep.storeBatch(cmp1, cmp2, cmp3, cmp4, cmp5);
         _categoryRep.storeBatch(cat1, cat2);
         _eventRep.storeBatch(ev1, ev2, ev3);
