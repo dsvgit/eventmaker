@@ -4,6 +4,7 @@ import eventmaker.core.repository.CompanyRepository;
 import eventmaker.core.repository.exceptions.NotFoundException;
 import eventmaker.core.repository.exceptions.RepositoryException;
 import eventmaker.data.Company;
+import eventmaker.data.init.DbInitializer;
 import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
 import eventmaker.hibernate.HibernateUtil;
 import java.util.Iterator;
@@ -17,19 +18,9 @@ public class EventMaker {
         CompanyRepository _cmpRep = new CompanyRepository();
         
         try {
-            Company cmp = new Company();
-            cmp.setName("NetBeans");
-            cmp.setDescription("HP");
-            cmp.setOrganazer(11);
+            DbInitializer.initialize();          
             
-            _cmpRep.store(cmp);
-            List<Company> list = _cmpRep.getList();
-            
-            for (Company item : list) {
-                System.out.println(item.getName());
-            }           
-            
-        } catch (RepositoryException | DifferentObjectInIdentityMapException | NotFoundException ex) {
+        } catch (RepositoryException | DifferentObjectInIdentityMapException ex) {
             Logger.getLogger(EventMaker.class.getName()).log(Level.SEVERE, null, ex);
         }
         

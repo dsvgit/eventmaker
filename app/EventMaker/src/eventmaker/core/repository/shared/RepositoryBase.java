@@ -1,6 +1,6 @@
-package eventmaker.core.repository;
+package eventmaker.core.repository.shared;
 
-import eventmaker.data.Entity;
+import eventmaker.data.shared.Entity;
 import eventmaker.hibernate.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
@@ -46,6 +46,22 @@ public abstract class RepositoryBase<T extends Entity, ID extends Serializable> 
         Session session = sessFact.openSession();
         org.hibernate.Transaction tr = session.beginTransaction();
         session.save(entity);
+        tr.commit();
+        session.close();
+    }
+    
+    protected void insertBatch(T... entities) {
+        Session session = sessFact.openSession();
+        org.hibernate.Transaction tr = session.beginTransaction();
+        int i = 1;
+        for (T e : entities) {
+            session.save(e);
+            if ( i % 20 == 0 ) {
+                session.flush();
+                session.clear();
+            }
+            i++;
+        }
         tr.commit();
         session.close();
     }

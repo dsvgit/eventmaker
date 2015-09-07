@@ -13,6 +13,7 @@
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
 
+    <mapping class="eventmaker.data.User" />
     <mapping class="eventmaker.data.Company" />
 
 </session-factory>

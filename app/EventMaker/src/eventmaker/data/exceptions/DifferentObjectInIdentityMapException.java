@@ -5,7 +5,7 @@
  */
 package eventmaker.data.exceptions;
 
-import eventmaker.data.Entity;
+import eventmaker.data.shared.Entity;
 
 /**
  *

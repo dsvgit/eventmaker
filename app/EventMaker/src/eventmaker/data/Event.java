@@ -5,6 +5,8 @@
  */
 package eventmaker.data;
 
+import eventmaker.data.shared.Entity;
+
 /**
  *
  * @author dsvma_000

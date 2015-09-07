@@ -1,11 +1,12 @@
 package eventmaker.data;
 
-import eventmaker.data.shared.ValueObject;
+import eventmaker.data.shared.Entity;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.apache.commons.lang3.Validate;
 
 @javax.persistence.Entity
 @Table(name = "company")
@@ -22,29 +23,24 @@ public class Company extends Entity {
     @Column(name="description")
     private String description;
     
-    @Column(name="organizer_id")
-    private int organaizer;
+    @ManyToOne
+    @JoinColumn(name = "uid")
+    private User organaizer;
     
     public Company() {
     }
-    
-    public Company(final int id,final String name,final String description,final int organazer) {
-        Validate.notNull(id, "id is required");
-        Validate.notNull(name, "name is required");
-        Validate.notNull(description, "description is required");
-        Validate.notNull(organazer, "organazer is required");
-        
-        this.id = id;
+
+    public Company(String name, String description, User organaizer) {
         this.name = name;
         this.description = description;
-        this.organaizer = organazer;
+        this.organaizer = organaizer;
     }
     
-    public int getOrganazer() {
+    public User getOrganazer() {
         return organaizer;
     }
 
-    public void setOrganazer(int organazer) {
+    public void setOrganazer(User organazer) {
         this.organaizer = organazer;
     }
 

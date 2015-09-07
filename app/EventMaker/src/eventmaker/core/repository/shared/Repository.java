@@ -1,9 +1,9 @@
-package eventmaker.core.repository;
+package eventmaker.core.repository.shared;
 
 import eventmaker.core.repository.exceptions.RepositoryException;
 import eventmaker.core.repository.exceptions.NotFoundException;
-import eventmaker.data.Entity;
-import eventmaker.data.IdentityMap;
+import eventmaker.data.shared.Entity;
+import eventmaker.data.shared.IdentityMap;
 import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
 import eventmaker.data.exceptions.NotRegisteredRepositoryException;
 import java.io.Serializable;
@@ -33,6 +33,10 @@ public abstract class Repository<T extends Entity, ID extends Serializable> exte
         }
         
         return entity;
+    }
+    
+    public void storeBatch(T... entities) throws RepositoryException, DifferentObjectInIdentityMapException {
+        insertBatch(entities);
     }
     
     public void store(final T entity) throws RepositoryException, DifferentObjectInIdentityMapException {

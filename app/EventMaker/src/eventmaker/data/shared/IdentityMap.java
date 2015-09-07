@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package eventmaker.data;
+package eventmaker.data.shared;
 
 import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
 import eventmaker.data.exceptions.NotRegisteredRepositoryException;
@@ -11,11 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang3.Validate;
 
-/**
- *
- * @author dsvma_000
- * @param <T>
- */
 public final class IdentityMap<T extends Entity> {
     private final Map<Object, T> map = new HashMap<>();
     
