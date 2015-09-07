@@ -10,7 +10,7 @@ public class HibernateUtil {
 
     static {
             try {
-            	Configuration cfg = new Configuration().configure("hibernate.cfg.xml");        	
+            	Configuration cfg = new Configuration().configure("config/hibernate.cfg.xml");        	
             	StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
             	sb.applySettings(cfg.getProperties());
             	StandardServiceRegistry standardServiceRegistry = sb.build();           	

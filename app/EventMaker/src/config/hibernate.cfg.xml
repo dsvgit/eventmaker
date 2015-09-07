@@ -11,10 +11,12 @@
     <property name="hibernate.connection.pool_size">10</property>
     <property name="show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
-    <property name="hibernate.hbm2ddl.auto">update</property>
+    <property name="hibernate.hbm2ddl.auto">create</property>
 
     <mapping class="eventmaker.data.User" />
     <mapping class="eventmaker.data.Company" />
-
+    <mapping class="eventmaker.data.Category" />
+    <mapping class="eventmaker.data.Event" />
+    
 </session-factory>
 </hibernate-configuration>
