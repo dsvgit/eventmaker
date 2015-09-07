@@ -17,6 +17,7 @@
     <mapping class="eventmaker.data.Company" />
     <mapping class="eventmaker.data.Category" />
     <mapping class="eventmaker.data.Event" />
+    <mapping class="eventmaker.data.Registration" />
     
 </session-factory>
 </hibernate-configuration>

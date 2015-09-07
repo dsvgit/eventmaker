@@ -37,10 +37,10 @@ public class Event extends Entity {
     @Column(name="description")
     private String description;
     
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private ApproveRule approveRule;
     
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private PaymentRule paymentRule;
     
     @Enumerated(EnumType.ORDINAL)
