@@ -1,14 +1,16 @@
-package eventmaker.core.repository;
+package eventmaker.repository.impl;
 
-import eventmaker.core.repository.shared.Repository;
+import eventmaker.repository.IRegistrationRepository;
+import eventmaker.repository.shared.Repository;
 import eventmaker.data.Event;
 import eventmaker.data.Registration;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-public class RegistrationRepository extends Repository<Registration, Integer> {
+public class RegistrationRepository extends Repository<Registration, Integer> implements IRegistrationRepository {
 
+    @Override
     public List<Registration> getByEvent(Event event) {
         Session session = sessFact.openSession();
         org.hibernate.Transaction tr = session.beginTransaction();

@@ -1,6 +1,6 @@
 package eventmaker.logic.configuration;
 
-import eventmaker.core.utils.FileUtils;
+import eventmaker.utils.FileUtils;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;

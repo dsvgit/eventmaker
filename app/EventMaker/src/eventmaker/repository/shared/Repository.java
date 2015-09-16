@@ -1,7 +1,7 @@
-package eventmaker.core.repository.shared;
+package eventmaker.repository.shared;
 
-import eventmaker.core.repository.exceptions.RepositoryException;
-import eventmaker.core.repository.exceptions.NotFoundException;
+import eventmaker.repository.exceptions.RepositoryException;
+import eventmaker.repository.exceptions.NotFoundException;
 import eventmaker.data.shared.Entity;
 import eventmaker.data.shared.IdentityMap;
 import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
@@ -10,14 +10,15 @@ import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang3.Validate;
 
-public abstract class Repository<T extends Entity, ID extends Serializable> extends RepositoryBase<T, ID> {
+public abstract class Repository<T extends Entity, ID extends Serializable> extends RepositoryBase<T, ID> implements IRepository<T> {
     protected final IdentityMap<T> identityMap = new IdentityMap<>();
     
+    @Override
     public List<T> getList() throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException {
-        
         return list();
     }
     
+    @Override
     public T get(final Object identifier) throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException {
         Validate.notNull(identifier, "identifier required");
         
@@ -35,10 +36,12 @@ public abstract class Repository<T extends Entity, ID extends Serializable> exte
         return entity;
     }
     
+    @Override
     public void storeBatch(T... entities) throws RepositoryException, DifferentObjectInIdentityMapException {
         insertBatch(entities);
     }
     
+    @Override
     public void store(final T entity) throws RepositoryException, DifferentObjectInIdentityMapException {
         Validate.notNull(entity, "entity required");
         
@@ -52,6 +55,7 @@ public abstract class Repository<T extends Entity, ID extends Serializable> exte
         }
     }
     
+    @Override
     public void remove(final T entity) throws RepositoryException, NotRegisteredRepositoryException, DifferentObjectInIdentityMapException {
         Validate.notNull(entity, "entity required");
         

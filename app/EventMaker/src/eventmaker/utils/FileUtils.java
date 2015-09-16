@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eventmaker.core.utils;
+package eventmaker.utils;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

@@ -1,11 +1,11 @@
 package eventmaker.data.init;
 
-import eventmaker.core.repository.CategoryRepository;
-import eventmaker.core.repository.CompanyRepository;
-import eventmaker.core.repository.EventRepository;
-import eventmaker.core.repository.RegistrationRepository;
-import eventmaker.core.repository.UserRepository;
-import eventmaker.core.repository.exceptions.RepositoryException;
+import eventmaker.repository.impl.CategoryRepository;
+import eventmaker.repository.impl.CompanyRepository;
+import eventmaker.repository.impl.EventRepository;
+import eventmaker.repository.impl.RegistrationRepository;
+import eventmaker.repository.impl.UserRepository;
+import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.data.Category;
 import eventmaker.data.Company;
 import eventmaker.data.Event;
@@ -38,6 +38,7 @@ public class DbInitializer {
         
         Organizer org1 = new Organizer("Sergey", "Dedkov", "dsv", "director", "dsv.mail@yandex.ru");
         Organizer org2 = new Organizer("Roman", "Smith", "rr", "1", "89086398518");
+        Organizer org3 = new Organizer("admin", "admin", "admin", "admin", "admin");
         
         Company cmp1 = new Company("Coca-cola", "We produce cola", org1);
         Company cmp2 = new Company("Pepsi", "We produce pepsi", org2);
@@ -75,7 +76,7 @@ public class DbInitializer {
                 PaymentState.PAID, u2);
         
         
-        _userRep.storeBatch(u1, u2, u3, u4, org1, org2);
+        _userRep.storeBatch(u1, u2, u3, u4, org1, org2, org3);
         _cmpRep.storeBatch(cmp1, cmp2, cmp3, cmp4, cmp5);
         _categoryRep.storeBatch(cat1, cat2);
         _eventRep.storeBatch(ev1, ev2, ev3);

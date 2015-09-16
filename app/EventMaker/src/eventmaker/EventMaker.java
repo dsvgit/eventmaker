@@ -1,48 +1,37 @@
 package eventmaker;
 
-import eventmaker.core.repository.CategoryRepository;
-import eventmaker.core.repository.EventRepository;
-import eventmaker.core.repository.RegistrationRepository;
-import eventmaker.core.repository.UserRepository;
-import eventmaker.core.repository.exceptions.NotFoundException;
-import eventmaker.core.repository.exceptions.RepositoryException;
-import eventmaker.data.Category;
-import eventmaker.data.Company;
-import eventmaker.data.Event;
-import eventmaker.data.Organizer;
-import eventmaker.data.Registration;
+import eventmaker.repository.exceptions.NotFoundException;
+import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.data.enums.ApproveRule;
 import eventmaker.data.enums.Availability;
 import eventmaker.data.enums.PaymentRule;
-import eventmaker.data.init.DbInitializer;
 import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
+import eventmaker.data.init.DbInitializer;
 import eventmaker.hibernate.HibernateUtil;
+import eventmaker.logic.services.CompanyService;
+import eventmaker.logic.services.EventService;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class EventMaker {
 
-    public static void main(String[] args) {
-        UserRepository _uRep = new UserRepository();
-        CategoryRepository _catRep = new CategoryRepository();
-        EventRepository _eventRep = new EventRepository();
-        RegistrationRepository _regRep = new RegistrationRepository();
+    public static void main(String[] args) throws RepositoryException, DifferentObjectInIdentityMapException, NotFoundException {
+       
+        DbInitializer.initialize();       
         
-        try {
-            DbInitializer.initialize();
-            
-            Organizer org = (Organizer) _uRep.get(5);
-            Company cmp = org.createCompany("Cola", "My own company");
-            Category cat = _catRep.get(1);
-            org.createEvent("Party", cat, new Date(), "description", ApproveRule.BOTH, 
-                    PaymentRule.FREE, Availability.OPENED, new BigDecimal(100), cmp);
-            
-        } catch (RepositoryException | DifferentObjectInIdentityMapException | NotFoundException ex) {
-            Logger.getLogger(EventMaker.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        CompanyService _cmpService = new CompanyService();
+        EventService evService = new EventService();
+        evService.createEvent(
+                "Party",
+                1, 
+                new Date(), 
+                "description", 
+                ApproveRule.BOTH, 
+                PaymentRule.FREE, 
+                Availability.OPENED, 
+                new BigDecimal(100), 
+                5
+        );
         
         HibernateUtil.shutdown();
     }

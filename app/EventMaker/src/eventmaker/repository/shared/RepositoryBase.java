@@ -1,4 +1,4 @@
-package eventmaker.core.repository.shared;
+package eventmaker.repository.shared;
 
 import eventmaker.data.shared.Entity;
 import eventmaker.hibernate.HibernateUtil;
