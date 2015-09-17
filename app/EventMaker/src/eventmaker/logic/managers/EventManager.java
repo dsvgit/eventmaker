@@ -1,4 +1,4 @@
-package eventmaker.logic.services;
+package eventmaker.logic.managers;
 
 import eventmaker.data.Category;
 import eventmaker.data.Company;

@@ -1,4 +1,4 @@
-package eventmaker.logic.services;
+package eventmaker.logic.managers;
 
 import eventmaker.repository.impl.CompanyRepository;
 import eventmaker.repository.ICompanyRepository;
@@ -9,12 +9,18 @@ import eventmaker.data.User;
 import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
 import eventmaker.logic.identity.IIdentity;
 import eventmaker.logic.identity.Identity;
+import eventmaker.logic.identity.UserAuthorizationException;
+import eventmaker.logic.models.CompanyMapper;
+import eventmaker.logic.models.VCompany;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CompanyManager {
     private final ICompanyRepository _compRep = new CompanyRepository();
     private final IIdentity _identity = new Identity();
+    private final CompanyMapper _mapper = new CompanyMapper();
     
-    public Company create(String name, String description) throws RepositoryException, DifferentObjectInIdentityMapException {
+    public Company create(String name, String description) throws RepositoryException, DifferentObjectInIdentityMapException, UserAuthorizationException {
         Company cmp = new Company(name, description, (User) _identity.getUser());
         _compRep.store(cmp);
         
@@ -23,5 +29,14 @@ public class CompanyManager {
     
     public Company get(final Integer id) throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException {
         return _compRep.get(id);
+    }
+    
+    public List<VCompany> getList() throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException {
+        List<VCompany> vList = new LinkedList<>();
+        List<Company> list = _compRep.getList();
+        for (Company c : list) {
+            vList.add(_mapper.Map(c));
+        }
+        return vList;
     }
 }
