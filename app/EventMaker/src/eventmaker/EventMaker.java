@@ -8,8 +8,8 @@ import eventmaker.data.enums.PaymentRule;
 import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
 import eventmaker.data.init.DbInitializer;
 import eventmaker.hibernate.HibernateUtil;
-import eventmaker.logic.services.CompanyService;
-import eventmaker.logic.services.EventService;
+import eventmaker.logic.services.CompanyManager;
+import eventmaker.logic.services.EventManager;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -19,9 +19,9 @@ public class EventMaker {
        
         DbInitializer.initialize();       
         
-        CompanyService _cmpService = new CompanyService();
-        EventService evService = new EventService();
-        evService.createEvent(
+        CompanyManager _cmpService = new CompanyManager();
+        EventManager evService = new EventManager();
+        evService.create(
                 "Party",
                 1, 
                 new Date(), 

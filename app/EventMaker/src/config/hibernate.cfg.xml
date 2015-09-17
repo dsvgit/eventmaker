@@ -14,7 +14,6 @@
     <property name="hibernate.hbm2ddl.auto">create</property>
 
     <mapping class="eventmaker.data.User" />
-    <mapping class="eventmaker.data.Organizer" />
     <mapping class="eventmaker.data.Company" />
     <mapping class="eventmaker.data.Category" />
     <mapping class="eventmaker.data.Event" />

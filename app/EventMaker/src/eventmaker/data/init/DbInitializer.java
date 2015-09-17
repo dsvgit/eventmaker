@@ -9,7 +9,6 @@ import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.data.Category;
 import eventmaker.data.Company;
 import eventmaker.data.Event;
-import eventmaker.data.Organizer;
 import eventmaker.data.Registration;
 import eventmaker.data.User;
 import eventmaker.data.enums.ApproveRule;
@@ -35,10 +34,9 @@ public class DbInitializer {
         User u2 = new User("Alex", "Smith", "asmith", "1");
         User u3 = new User("John", "White", "jwhite", "director");
         User u4 = new User("Jane", "Cooper", "ivan1", "director");
-        
-        Organizer org1 = new Organizer("Sergey", "Dedkov", "dsv", "director", "dsv.mail@yandex.ru");
-        Organizer org2 = new Organizer("Roman", "Smith", "rr", "1", "89086398518");
-        Organizer org3 = new Organizer("admin", "admin", "admin", "admin", "admin");
+        User org1 = new User("Sergey", "Dedkov", "dsv", "1");
+        User org2 = new User("Roman", "Smith", "rr", "1");
+        User org3 = new User("admin", "admin", "admin", "1");
         
         Company cmp1 = new Company("Coca-cola", "We produce cola", org1);
         Company cmp2 = new Company("Pepsi", "We produce pepsi", org2);

@@ -7,29 +7,26 @@ import eventmaker.data.enums.ApproveRule;
 import eventmaker.data.enums.Availability;
 import eventmaker.data.enums.PaymentRule;
 import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
-import eventmaker.repository.ICategoryRepository;
-import eventmaker.repository.ICompanyRepository;
 import eventmaker.repository.IEventRepository;
 import eventmaker.repository.exceptions.NotFoundException;
 import eventmaker.repository.exceptions.RepositoryException;
-import eventmaker.repository.impl.CategoryRepository;
-import eventmaker.repository.impl.CompanyRepository;
 import eventmaker.repository.impl.EventRepository;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class EventService {
-    private final ICompanyRepository _compRep = new CompanyRepository();
+public class EventManager {
     private final IEventRepository _eventRep = new EventRepository();
-    private final ICategoryRepository _catRep = new CategoryRepository();
     
-    public Event createEvent(String name, Integer categoryId, Date eventDate,
+    private final CompanyManager _compManager = new CompanyManager();
+    private final CategoryManager _catManager = new CategoryManager();
+    
+    public Event create(String name, Integer categoryId, Date eventDate,
             String description, ApproveRule approveRule,
             PaymentRule paymentRule, Availability availability,
             BigDecimal cost, Integer companyId) throws RepositoryException, DifferentObjectInIdentityMapException, NotFoundException {
         
-        Category category = _catRep.get(categoryId);
-        Company company = _compRep.get(companyId);
+        Category category = _catManager.get(categoryId);
+        Company company = _compManager.get(companyId);
         
         Event event = new Event(
                 name, 
