@@ -5,12 +5,13 @@ import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
 import eventmaker.data.init.DbInitializer;
 import eventmaker.ui.FLogin;
+import eventmaker.ui.FStartPage;
 import javax.swing.JFrame;
 
 public class EventMaker {
 
     public static void main(String[] args) throws RepositoryException, DifferentObjectInIdentityMapException, NotFoundException {
-        DbInitializer.initialize();
+        //DbInitializer.initialize();
         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -35,9 +36,7 @@ public class EventMaker {
         }
         //</editor-fold>
         
-        JFrame frame = new FLogin();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+        JFrame frame = new FLogin("Hello");
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }

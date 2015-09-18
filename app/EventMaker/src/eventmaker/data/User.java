@@ -75,7 +75,11 @@ public class User extends Entity {
 
     public void setInfo(String info) {
         this.info = info;
-    }  
+    }
+    
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 
     @Override
     public Object getIdentifier() {

@@ -6,6 +6,7 @@ import eventmaker.repository.IUserRepository;
 import eventmaker.repository.exceptions.NotFoundException;
 import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.repository.impl.UserRepository;
+import java.util.List;
 
 public class UserManager {
     private final IUserRepository _userRep = new UserRepository();
@@ -22,5 +23,9 @@ public class UserManager {
     
     public User getUserByName(String name) throws RepositoryException, DifferentObjectInIdentityMapException, NotFoundException {
         return _userRep.getUserByLogin(name);
+    }
+    
+    public List<User> getList() throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException {
+        return _userRep.getList();
     }
 }

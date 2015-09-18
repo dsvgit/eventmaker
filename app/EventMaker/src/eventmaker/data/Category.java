@@ -45,6 +45,9 @@ public class Category extends Entity {
     public Object getIdentifier() {
         return id;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

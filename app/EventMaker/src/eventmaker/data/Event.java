@@ -155,5 +155,9 @@ public class Event extends Entity {
     public Object getIdentifier() {
         return id;
     }
-    
+
+    @Override
+    public String toString() {
+        return name + " " + company.toString();
+    }    
 }

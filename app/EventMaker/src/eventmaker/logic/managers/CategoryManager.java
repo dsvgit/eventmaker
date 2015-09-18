@@ -6,6 +6,7 @@ import eventmaker.repository.ICategoryRepository;
 import eventmaker.repository.exceptions.NotFoundException;
 import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.repository.impl.CategoryRepository;
+import java.util.List;
 
 public class CategoryManager {
     private final ICategoryRepository _catRep = new CategoryRepository();
@@ -18,5 +19,9 @@ public class CategoryManager {
     
     public Category get(Integer id) throws RepositoryException, DifferentObjectInIdentityMapException, NotFoundException {
         return _catRep.get(id);
+    }
+    
+    public List<Category> getList() throws RepositoryException, DifferentObjectInIdentityMapException, NotFoundException {
+        return _catRep.getList();
     }
 }

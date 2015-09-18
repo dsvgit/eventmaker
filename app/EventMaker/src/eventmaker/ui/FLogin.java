@@ -1,6 +1,7 @@
 package eventmaker.ui;
 
 import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
+import eventmaker.logic.identity.UserAuthorizationException;
 import eventmaker.logic.managers.AuthorizationManager;
 import eventmaker.repository.exceptions.NotFoundException;
 import eventmaker.repository.exceptions.RepositoryException;
@@ -13,8 +14,14 @@ public class FLogin extends javax.swing.JFrame {
     
     private final AuthorizationManager _authManager = new AuthorizationManager();
 
-    public FLogin() {
+    public FLogin(String title) {
+        super(title);
+        init();
         initComponents();
+    }
+    
+    private void init() {
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     @SuppressWarnings("unchecked")
@@ -24,20 +31,22 @@ public class FLogin extends javax.swing.JFrame {
         tfLogin = new javax.swing.JTextField();
         pfPass = new javax.swing.JPasswordField();
         btnEnter = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tfLogin.setText("login");
-
-        pfPass.setText("jPasswordField1");
-
         btnEnter.setText("Log in");
         btnEnter.setToolTipText("");
-        btnEnter.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnEnterMouseClicked(evt);
+        btnEnter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnterActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Login");
+
+        jLabel2.setText("Password");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -45,20 +54,26 @@ public class FLogin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tfLogin)
-                    .addComponent(pfPass, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                    .addComponent(btnEnter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pfPass, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(btnEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEnter)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -66,22 +81,24 @@ public class FLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEnterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEnterMouseClicked
+    private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
         try {
             _authManager.Login(tfLogin.getText(), Arrays.toString(pfPass.getPassword()));
         } catch (RepositoryException | DifferentObjectInIdentityMapException | NotFoundException ex) {
             Logger.getLogger(FLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UserAuthorizationException ex) {
+            return;
         }
         dispose();
         JFrame fOverview = new FOverview();
-        fOverview.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fOverview.pack();
         fOverview.setLocationRelativeTo(null);
         fOverview.setVisible(true);
-    }//GEN-LAST:event_btnEnterMouseClicked
+    }//GEN-LAST:event_btnEnterActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnter;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField pfPass;
     private javax.swing.JTextField tfLogin;
     // End of variables declaration//GEN-END:variables

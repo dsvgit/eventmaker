@@ -7,6 +7,7 @@ import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.data.Company;
 import eventmaker.data.User;
 import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
+import eventmaker.data.exceptions.NotRegisteredRepositoryException;
 import eventmaker.logic.identity.IIdentity;
 import eventmaker.logic.identity.Identity;
 import eventmaker.logic.identity.UserAuthorizationException;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class CompanyManager {
     private final ICompanyRepository _compRep = new CompanyRepository();
-    private final IIdentity _identity = new Identity();
+    private final IIdentity _identity = Identity.getInstance();
     private final CompanyMapper _mapper = new CompanyMapper();
     
     public Company create(String name, String description) throws RepositoryException, DifferentObjectInIdentityMapException, UserAuthorizationException {
@@ -38,5 +39,10 @@ public class CompanyManager {
             vList.add(_mapper.Map(c));
         }
         return vList;
+    }
+    
+    public void delete(Integer id) throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException, NotRegisteredRepositoryException {
+        Company cmp = _compRep.get(id);
+        _compRep.remove(cmp);
     }
 }

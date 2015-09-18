@@ -9,6 +9,9 @@ public class Identity implements IIdentity {
     private static Identity instance;
     private User _user;
     private final IUserRepository _uRep = new UserRepository();
+
+    private Identity() {
+    }
     
     public static synchronized Identity getInstance() {
         if (instance == null) {
