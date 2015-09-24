@@ -8,6 +8,9 @@ import eventmaker.data.enums.ApproveState;
 import eventmaker.data.enums.PaymentRule;
 import eventmaker.data.enums.PaymentState;
 import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
+import eventmaker.logic.identity.IIdentity;
+import eventmaker.logic.identity.Identity;
+import eventmaker.logic.identity.UserAuthorizationException;
 import eventmaker.repository.IRegistrationRepository;
 import eventmaker.repository.exceptions.NotFoundException;
 import eventmaker.repository.exceptions.RepositoryException;
@@ -18,6 +21,7 @@ public class RegistrationManager {
     private final IRegistrationRepository _regsRepository = new RegistrationRepository();
     private final EventManager _evManager = new EventManager();
     private final UserManager _userManager = new UserManager();
+    private final IIdentity _identity = Identity.getInstance();
     
     public List<Registration> getList() throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException {
         return _regsRepository.getList();
@@ -53,5 +57,9 @@ public class RegistrationManager {
     public List<Registration> getListByEvent(Integer id) throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException {
         Event event = _evManager.get(id);
         return _regsRepository.getByEvent(event);
+    }
+    
+    public List<Registration> getByCurrentUser() throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException, UserAuthorizationException {
+        return _regsRepository.getByUser(_identity.getUser());
     }
 }

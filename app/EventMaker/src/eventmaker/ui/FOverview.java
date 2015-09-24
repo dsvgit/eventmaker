@@ -6,6 +6,7 @@ import eventmaker.data.Registration;
 import eventmaker.data.User;
 import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
 import eventmaker.data.exceptions.NotRegisteredRepositoryException;
+import eventmaker.logic.identity.UserAuthorizationException;
 import eventmaker.logic.managers.CompanyManager;
 import eventmaker.logic.managers.EventManager;
 import eventmaker.logic.managers.UserManager;
@@ -142,6 +143,8 @@ public class FOverview extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableWhereIGo = new javax.swing.JTable();
+        jPanel11 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         mbMain = new javax.swing.JMenuBar();
         mFile = new javax.swing.JMenu();
         miExit = new javax.swing.JMenuItem();
@@ -196,7 +199,7 @@ public class FOverview extends javax.swing.JFrame {
         );
         panelOverviewLayout.setVerticalGroup(
             panelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(companyView, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+            .addComponent(companyView, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelRigthLayout = new javax.swing.GroupLayout(panelRigth);
@@ -225,7 +228,7 @@ public class FOverview extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 311, Short.MAX_VALUE)
+            .addGap(0, 341, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(6, 6, 6)
@@ -314,7 +317,7 @@ public class FOverview extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelCategoriesLayout = new javax.swing.GroupLayout(panelCategories);
@@ -416,7 +419,7 @@ public class FOverview extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -490,7 +493,7 @@ public class FOverview extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+                .addComponent(spUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -509,20 +512,43 @@ public class FOverview extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(tableWhereIGo);
 
+        jButton1.setText("Approve");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -625,6 +651,7 @@ public class FOverview extends javax.swing.JFrame {
             Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
         }
         RerenderRegistrations();
+        RerenderWhereIGo();
     }//GEN-LAST:event_btnRegisterUserActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -636,10 +663,12 @@ public class FOverview extends javax.swing.JFrame {
     private javax.swing.JComboBox cbCompanies;
     private javax.swing.JComboBox cbEvents;
     private eventmaker.ui.company.PCompany companyView;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -708,13 +737,13 @@ public class FOverview extends javax.swing.JFrame {
     }
     
     private void RerenderWhereIGo() {
-        Event event = (Event) cbEvents.getSelectedItem();
-        if (event == null) return;
         List<Registration> regs;
         try {
-            regs = _regManager.getListByEvent(event.getId());
+            regs = _regManager.getByCurrentUser();
             tableWhereIGo.setModel(new RegistrationTableModel((ArrayList<Registration>) regs));
         } catch (RepositoryException | NotFoundException | DifferentObjectInIdentityMapException ex) {
+            Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UserAuthorizationException ex) {
             Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
