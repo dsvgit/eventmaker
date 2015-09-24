@@ -1,0 +1,34 @@
+@startuml
+
+title Classes - eventmaker
+
+Company "1..1" o-- "0..*" Event : have
+Event "1..1" o-- "0..*" Registration : register
+User <|-- Registration : is
+Event "0..*" o-- "1..1" Category
+SuperAdmin "1" --> "1" Registration : use
+
+class Company {
+}
+
+class User {
+    
+}
+
+class Event {
+    
+}
+
+class Category {
+
+}
+
+class Registration {
+
+}
+
+class SuperAdmin {
+    
+}
+
+@enduml
