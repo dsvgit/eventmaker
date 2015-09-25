@@ -1,10 +1,9 @@
 package eventmaker.ui;
 
-import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
 import eventmaker.logic.identity.UserAuthorizationException;
 import eventmaker.logic.managers.AuthorizationManager;
-import eventmaker.repository.exceptions.NotFoundException;
 import eventmaker.repository.exceptions.RepositoryException;
+
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,10 +17,15 @@ public class FLogin extends javax.swing.JFrame {
         super(title);
         init();
         initComponents();
+        start();
     }
     
     private void init() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+    
+    private void start() {
+        lErrorMessage.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -31,8 +35,9 @@ public class FLogin extends javax.swing.JFrame {
         tfLogin = new javax.swing.JTextField();
         pfPass = new javax.swing.JPasswordField();
         btnEnter = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lErrorMessage = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,9 +49,11 @@ public class FLogin extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Login");
+        lErrorMessage.setText("<error_message>");
 
         jLabel2.setText("Password");
+
+        jLabel3.setText("Login");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,22 +64,25 @@ public class FLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pfPass, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
+                    .addComponent(lErrorMessage)
                     .addComponent(jLabel2)
-                    .addComponent(btnEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lErrorMessage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEnter)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -84,9 +94,11 @@ public class FLogin extends javax.swing.JFrame {
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
         try {
             _authManager.Login(tfLogin.getText(), Arrays.toString(pfPass.getPassword()));
-        } catch (RepositoryException | DifferentObjectInIdentityMapException | NotFoundException ex) {
+        } catch (RepositoryException ex) {
             Logger.getLogger(FLogin.class.getName()).log(Level.SEVERE, null, ex);
+            lErrorMessage.setText("can't connect to db");
         } catch (UserAuthorizationException ex) {
+            lErrorMessage.setText("user not found");
             return;
         }
         dispose();
@@ -97,10 +109,13 @@ public class FLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnter;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lErrorMessage;
     private javax.swing.JPasswordField pfPass;
     private javax.swing.JTextField tfLogin;
     // End of variables declaration//GEN-END:variables
+
+    
 
 }

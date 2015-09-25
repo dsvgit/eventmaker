@@ -6,13 +6,11 @@ import eventmaker.data.Event;
 import eventmaker.data.enums.ApproveRule;
 import eventmaker.data.enums.Availability;
 import eventmaker.data.enums.PaymentRule;
-import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
-import eventmaker.logic.models.VCompany;
 import eventmaker.repository.IEventRepository;
-import eventmaker.repository.exceptions.NotFoundException;
 import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.repository.impl.EventRepository;
 import java.math.BigDecimal;
+
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class EventManager {
     public Event create(String name, Integer categoryId, Date eventDate,
             String description, ApproveRule approveRule,
             PaymentRule paymentRule, Availability availability,
-            BigDecimal cost, Integer companyId) throws RepositoryException, DifferentObjectInIdentityMapException, NotFoundException {
+            BigDecimal cost, Integer companyId) throws RepositoryException {
         
         Category category = _catManager.get(categoryId);
         Company company = _compManager.get(companyId);
@@ -47,15 +45,15 @@ public class EventManager {
         return event;
     }
     
-    public Event get(Integer id) throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException {
+    public Event get(Integer id) throws RepositoryException {
         return _eventRep.get(id);
     }
     
-    public List<Event> getList() throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException {
+    public List<Event> getList() throws RepositoryException {
         return _eventRep.getList();
     }
 
-    public List<Event> getListByCompany(Integer id) throws RepositoryException, NotFoundException, DifferentObjectInIdentityMapException {
+    public List<Event> getListByCompany(Integer id) throws RepositoryException {
         Company cmp = _compManager.get(id);
         return _eventRep.getListByCompany(cmp);
     }

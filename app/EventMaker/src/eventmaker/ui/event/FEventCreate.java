@@ -4,20 +4,17 @@ import eventmaker.data.Category;
 import eventmaker.data.enums.ApproveRule;
 import eventmaker.data.enums.Availability;
 import eventmaker.data.enums.PaymentRule;
-import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
 import eventmaker.logic.managers.CategoryManager;
 import eventmaker.logic.managers.EventManager;
 import eventmaker.logic.models.VCompany;
-import eventmaker.repository.exceptions.NotFoundException;
 import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.ui.FOverview;
+
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 
 public class FEventCreate extends javax.swing.JFrame {
 
@@ -38,7 +35,7 @@ public class FEventCreate extends javax.swing.JFrame {
             Category[] categoriesArray = categories.toArray(new Category[categories.size()]);
             DefaultComboBoxModel<Category> categoriesModel = new DefaultComboBoxModel<>(categoriesArray);
             cbCategory.setModel(categoriesModel);
-        } catch (RepositoryException | DifferentObjectInIdentityMapException | NotFoundException ex) {
+        } catch (RepositoryException ex) {
             Logger.getLogger(FEventCreate.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -244,7 +241,7 @@ public class FEventCreate extends javax.swing.JFrame {
                     (Availability) cbAvailability.getSelectedItem(),
                     cost,
                     _currentCompany.id);
-        } catch (RepositoryException | DifferentObjectInIdentityMapException | NotFoundException ex) {
+        } catch (RepositoryException ex) {
             Logger.getLogger(FEventCreate.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();

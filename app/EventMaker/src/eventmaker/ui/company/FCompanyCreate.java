@@ -1,11 +1,10 @@
 package eventmaker.ui.company;
 
 import eventmaker.data.Company;
-import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
-import eventmaker.logic.identity.UserAuthorizationException;
 import eventmaker.logic.managers.CompanyManager;
 import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.ui.FOverview;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -104,7 +103,7 @@ public class FCompanyCreate extends javax.swing.JFrame {
         try {
             Company create = _cmpManager.create(tfDesc.getText(), tfName.getText());
             _ctx.AfterCompanyCreate();
-        } catch (RepositoryException | DifferentObjectInIdentityMapException | UserAuthorizationException ex) {
+        } catch (RepositoryException ex) {
             Logger.getLogger(FCompanyCreate.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();

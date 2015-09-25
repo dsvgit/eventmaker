@@ -4,20 +4,17 @@ import eventmaker.logic.managers.RegistrationManager;
 import eventmaker.data.Event;
 import eventmaker.data.Registration;
 import eventmaker.data.User;
-import eventmaker.data.exceptions.DifferentObjectInIdentityMapException;
-import eventmaker.data.exceptions.NotRegisteredRepositoryException;
-import eventmaker.logic.identity.UserAuthorizationException;
 import eventmaker.logic.managers.CompanyManager;
 import eventmaker.logic.managers.EventManager;
 import eventmaker.logic.managers.UserManager;
 import eventmaker.logic.models.VCompany;
-import eventmaker.repository.exceptions.NotFoundException;
 import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.ui.company.FCompanyCreate;
 import eventmaker.ui.event.EventTableModel;
 import eventmaker.ui.event.FEventCreate;
 import eventmaker.ui.registrations.RegistrationTableModel;
 import eventmaker.ui.registrations.UserTableModel;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -629,7 +626,7 @@ public class FOverview extends javax.swing.JFrame {
         Integer id = cmp.id;
         try {
             _cmpManager.delete(id);
-        } catch (RepositoryException | NotFoundException | DifferentObjectInIdentityMapException | NotRegisteredRepositoryException ex) {
+        } catch (RepositoryException ex) {
             Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
         }
         RerenderCompanies();
@@ -647,7 +644,7 @@ public class FOverview extends javax.swing.JFrame {
         User user = _userTableModel.getByIndex(tableUsers.getSelectedRow());
         try {
             _regManager.inviteUser(user.getId(), event.getId());
-        } catch (RepositoryException | DifferentObjectInIdentityMapException | NotFoundException ex) {
+        } catch (RepositoryException ex) {
             Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
         }
         RerenderRegistrations();
@@ -741,9 +738,7 @@ public class FOverview extends javax.swing.JFrame {
         try {
             regs = _regManager.getByCurrentUser();
             tableWhereIGo.setModel(new RegistrationTableModel((ArrayList<Registration>) regs));
-        } catch (RepositoryException | NotFoundException | DifferentObjectInIdentityMapException ex) {
-            Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UserAuthorizationException ex) {
+        } catch (RepositoryException ex) {
             Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
@@ -755,7 +750,7 @@ public class FOverview extends javax.swing.JFrame {
         try {
             regs = _regManager.getListByEvent(event.getId());
             tableRegs.setModel(new RegistrationTableModel((ArrayList<Registration>) regs));
-        } catch (RepositoryException | NotFoundException | DifferentObjectInIdentityMapException ex) {
+        } catch (RepositoryException ex) {
             Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
@@ -766,7 +761,7 @@ public class FOverview extends javax.swing.JFrame {
             users = _userManager.getList();
             _userTableModel = new UserTableModel((ArrayList<User>) users);
             tableUsers.setModel(_userTableModel);
-        } catch (RepositoryException | NotFoundException | DifferentObjectInIdentityMapException ex) {
+        } catch (RepositoryException ex) {
             Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
@@ -784,7 +779,7 @@ public class FOverview extends javax.swing.JFrame {
             Event[] allEventsArray = allEvents.toArray(new Event[allEvents.size()]);
             DefaultComboBoxModel<Event> eventComboboxModel = new DefaultComboBoxModel<>(allEventsArray);
             cbEvents.setModel(eventComboboxModel);
-        } catch (RepositoryException | NotFoundException | DifferentObjectInIdentityMapException ex) {
+        } catch (RepositoryException ex) {
             Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }
@@ -798,7 +793,7 @@ public class FOverview extends javax.swing.JFrame {
             VCompany[] companiesArray = companies.toArray(new VCompany[companies.size()]);
             DefaultComboBoxModel<VCompany> comboboxModel = new DefaultComboBoxModel<>(companiesArray);
             cbCompanies.setModel(comboboxModel);
-        } catch (RepositoryException | NotFoundException | DifferentObjectInIdentityMapException ex) {
+        } catch (RepositoryException ex) {
             Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
