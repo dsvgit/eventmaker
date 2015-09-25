@@ -3,32 +3,51 @@
 title Classes - eventmaker
 
 Company "1..1" o-- "0..*" Event : have
-Event "1..1" o-- "0..*" Registration : register
-User <|-- Registration : is
+Company "0..*" o- "1..1" User: organized by
+Event "1..1" o-- "0..*" Registration : in
+Registration "1" o-- "1" User : register
 Event "0..*" o-- "1..1" Category
 SuperAdmin "1" --> "1" Registration : use
 
 class Company {
+    -name
+    -description
+    -owner
 }
 
 class User {
-    
+    -firstName
+    -secondName
+    -login
+    -info
 }
 
 class Event {
-    
+    -title
+    -category
+    -eventDate
+    -description
+    -approveRule
+    -paymentRule
+    -availability
+    -cost
+    -company
 }
 
 class Category {
-
+    -name
 }
 
 class Registration {
-
+    -event
+    -approveState
+    -paymentState
+    -user
 }
 
 class SuperAdmin {
-    
+    -name
+    -login
 }
 
 @enduml
