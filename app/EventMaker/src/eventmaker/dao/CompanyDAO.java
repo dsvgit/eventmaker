@@ -211,7 +211,7 @@ public class CompanyDAO implements ICompanyRepository{
     @Override
     public void store(Company entity) throws RepositoryException {
         String sql = 
-                "insert into company (id, description, name, uid) values (?,?,?,?)";
+                "insert into company (description, name, uid) values (?,?,?)";
         
         Connection connection = null;
         PreparedStatement statement = null;
@@ -219,10 +219,9 @@ public class CompanyDAO implements ICompanyRepository{
         try {
             connection = _connectionFactory.getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setInt(1, entity.getId());
-            statement.setString(2, entity.getDescription());
-            statement.setString(3, entity.getName());
-            statement.setInt(4, entity.getOrganizer().getId());
+            statement.setString(1, entity.getDescription());
+            statement.setString(2, entity.getName());
+            statement.setInt(3, entity.getOrganizer().getId());
             statement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);

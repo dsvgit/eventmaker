@@ -25,9 +25,9 @@ import static org.junit.Assert.*;
  *
  * @author dsvma_000
  */
-public class EventManagerTest {
+public class EventTSTest {
     
-    public EventManagerTest() throws RepositoryException, UserAuthorizationException {
+    public EventTSTest() throws RepositoryException, UserAuthorizationException {
         new AuthorizationTransactionScripts().Login("admin", "admin");
     }
     

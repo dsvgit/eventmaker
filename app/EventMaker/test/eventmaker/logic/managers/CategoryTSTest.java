@@ -5,11 +5,12 @@
  */
 package eventmaker.logic.managers;
 
+import eventmaker.logic.transactionScripts.CategoryTransactionScripts;
 import eventmaker.logic.transactionScripts.AuthorizationTransactionScripts;
-import eventmaker.data.Company;
+import eventmaker.data.Category;
 import eventmaker.logic.identity.UserAuthorizationException;
-import eventmaker.logic.models.VCompany;
 import eventmaker.repository.exceptions.RepositoryException;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -20,9 +21,9 @@ import static org.junit.Assert.*;
  *
  * @author dsvma_000
  */
-public class CompanyManagerTest {
+public class CategoryTSTest {
     
-    public CompanyManagerTest() throws RepositoryException, UserAuthorizationException {
+    public CategoryTSTest() throws RepositoryException, UserAuthorizationException {
         new AuthorizationTransactionScripts().Login("admin", "admin");
     }
     
@@ -35,55 +36,40 @@ public class CompanyManagerTest {
     }
 
     /**
-     * Test of create method, of class CompanyManager.
+     * Test of create method, of class CategoryManager.
      */
     @Test
     public void testCreate() throws Exception, RepositoryException {
         System.out.println("create");
-        String name = "company";
-        String description = "";
-        CompanyManager instance = new CompanyManager();
-        Company expResult = new Company();
-        expResult.setName("company");
-        Company result = instance.create(name, description);
+        String name = "";
+        CategoryTransactionScripts instance = new CategoryTransactionScripts();
+        Category expResult = new Category("category");
+        Category result = instance.create("category");
         assertEquals(expResult.getName(), result.getName());
     }
 
     /**
-     * Test of get method, of class CompanyManager.
+     * Test of get method, of class CategoryManager.
      */
     @Test
     public void testGet() throws Exception, RepositoryException {
         System.out.println("get");
         Integer id = 1;
-        CompanyManager instance = new CompanyManager();
-        Company expResult = new Company();
-        expResult.setName("Coca-cola");
-        Company result = instance.get(id);
+        CategoryTransactionScripts instance = new CategoryTransactionScripts();
+        Category expResult = new Category("conference");
+        Category result = instance.get(id);
         assertEquals(expResult.getName(), result.getName());
     }
 
     /**
-     * Test of getList method, of class CompanyManager.
+     * Test of getList method, of class CategoryManager.
      */
     @Test
     public void testGetList() throws Exception, RepositoryException {
         System.out.println("getList");
-        CompanyManager instance = new CompanyManager();
-        List<VCompany> expResult = null;
-        List<VCompany> result = instance.getList();
-        assertTrue(result.size() > 0);
-    }
-
-    /**
-     * Test of getListCurrent method, of class CompanyManager.
-     */
-    @Test
-    public void testGetListCurrent() throws Exception, RepositoryException, UserAuthorizationException {
-        System.out.println("getListCurrent");
-        CompanyManager instance = new CompanyManager();
-        List<VCompany> expResult = null;
-        List<VCompany> result = instance.getListCurrent();
+        CategoryTransactionScripts instance = new CategoryTransactionScripts();
+        List<Category> expResult = new ArrayList<Category>();
+        List<Category> result = instance.getList();
         assertTrue(result.size() > 0);
     }
     

@@ -42,7 +42,7 @@ public class CompanyDAOTest {
         CompanyDAO instance = new CompanyDAO();
         List<Company> expResult = null;
         List<Company> result = instance.getListCurrent(user);
-        assertEquals(expResult, result);
+        assertTrue(result.size() > 0);
     }
 
     /**

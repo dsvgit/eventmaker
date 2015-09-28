@@ -16,9 +16,9 @@ import org.junit.Test;
  *
  * @author dsvma_000
  */
-public class AuthorizationManagerTest {
+public class AuthorizationTSTest {
     
-    public AuthorizationManagerTest() throws RepositoryException, UserAuthorizationException {
+    public AuthorizationTSTest() throws RepositoryException, UserAuthorizationException {
         new AuthorizationTransactionScripts().Login("admin", "admin");
     }
     

@@ -20,9 +20,9 @@ import static org.junit.Assert.*;
  *
  * @author dsvma_000
  */
-public class UserManagerTest {
+public class UserTSTest {
     
-    public UserManagerTest() throws RepositoryException, UserAuthorizationException {
+    public UserTSTest() throws RepositoryException, UserAuthorizationException {
         new AuthorizationTransactionScripts().Login("admin", "admin");
     }
     
