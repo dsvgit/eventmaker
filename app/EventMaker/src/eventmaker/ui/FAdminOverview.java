@@ -59,13 +59,13 @@ public class FAdminOverview extends javax.swing.JFrame {
 
         tableRegistrations.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(tableRegistrations);
@@ -144,7 +144,6 @@ public class FAdminOverview extends javax.swing.JFrame {
 
     private void init() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        RerenderRegs();
     }
     
     private void start() {

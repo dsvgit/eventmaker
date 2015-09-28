@@ -101,7 +101,7 @@ public class FCompanyCreate extends javax.swing.JFrame {
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         
         try {
-            Company create = _cmpManager.create(tfDesc.getText(), tfName.getText());
+            Company create = _cmpManager.create(tfName.getText(), tfDesc.getText());
             _ctx.AfterCompanyCreate();
         } catch (RepositoryException ex) {
             Logger.getLogger(FCompanyCreate.class.getName()).log(Level.SEVERE, null, ex);
