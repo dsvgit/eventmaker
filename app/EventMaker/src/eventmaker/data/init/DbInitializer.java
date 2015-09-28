@@ -30,13 +30,13 @@ public class DbInitializer {
     
     public static void initialize() throws RepositoryException,
             DifferentObjectInIdentityMapException {
-        User u1 = new User("Ivan", "Ivanov", "ivan", "director");
-        User u2 = new User("Alex", "Smith", "asmith", "1");
-        User u3 = new User("John", "White", "jwhite", "director");
-        User u4 = new User("Jane", "Cooper", "ivan1", "director");
-        User org1 = new User("Sergey", "Dedkov", "dsv", "1");
-        User org2 = new User("Roman", "Smith", "rr", "1");
-        User org3 = new User("admin", "admin", "admin", "1");
+        User u1 = new User("Ivan", "Ivanov", "ivan", "director", false);
+        User u2 = new User("Alex", "Smith", "asmith", "1", false);
+        User u3 = new User("John", "White", "jwhite", "director", false);
+        User u4 = new User("Jane", "Cooper", "ivan1", "director", false);
+        User org1 = new User("Sergey", "Dedkov", "dsv", "1", false);
+        User org2 = new User("Roman", "Smith", "rr", "1", false);
+        User org3 = new User("admin", "admin", "admin", "1", true);
         
         Company cmp1 = new Company("Coca-cola", "We produce cola", org1);
         Company cmp2 = new Company("Pepsi", "We produce pepsi", org2);

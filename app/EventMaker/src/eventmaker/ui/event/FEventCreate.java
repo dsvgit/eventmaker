@@ -4,8 +4,8 @@ import eventmaker.data.Category;
 import eventmaker.data.enums.ApproveRule;
 import eventmaker.data.enums.Availability;
 import eventmaker.data.enums.PaymentRule;
-import eventmaker.logic.managers.CategoryManager;
-import eventmaker.logic.managers.EventManager;
+import eventmaker.service.CategoryService;
+import eventmaker.service.EventService;
 import eventmaker.logic.models.VCompany;
 import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.ui.FOverview;
@@ -18,8 +18,8 @@ import javax.swing.DefaultComboBoxModel;
 
 public class FEventCreate extends javax.swing.JFrame {
 
-    private final EventManager _evManager = new EventManager();
-    private final CategoryManager _catManager = new CategoryManager();
+    private final EventService _evManager = new EventService();
+    private final CategoryService _catManager = new CategoryService();
     private final FOverview _ctx;
     private VCompany _currentCompany;
     

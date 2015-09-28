@@ -1,7 +1,7 @@
 package eventmaker.ui;
 
 import eventmaker.logic.identity.UserAuthorizationException;
-import eventmaker.logic.managers.AuthorizationManager;
+import eventmaker.service.AuthorizationService;
 import eventmaker.repository.exceptions.RepositoryException;
 
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 public class FLogin extends javax.swing.JFrame {
     
-    private final AuthorizationManager _authManager = new AuthorizationManager();
+    private final AuthorizationService _authManager = new AuthorizationService();
 
     public FLogin(String title) {
         super(title);
@@ -38,6 +38,7 @@ public class FLogin extends javax.swing.JFrame {
         lErrorMessage = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        cbAdminInterface = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,6 +56,13 @@ public class FLogin extends javax.swing.JFrame {
 
         jLabel3.setText("Login");
 
+        cbAdminInterface.setText("Admin interface");
+        cbAdminInterface.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAdminInterfaceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -62,12 +70,13 @@ public class FLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbAdminInterface)
                     .addComponent(pfPass, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lErrorMessage)
                     .addComponent(jLabel2)
-                    .addComponent(btnEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(btnEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -82,6 +91,8 @@ public class FLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbAdminInterface)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lErrorMessage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEnter)
@@ -93,7 +104,10 @@ public class FLogin extends javax.swing.JFrame {
 
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
         try {
-            _authManager.Login(tfLogin.getText(), Arrays.toString(pfPass.getPassword()));
+            if (!cbAdminInterface.isSelected())
+                _authManager.Login(tfLogin.getText(), Arrays.toString(pfPass.getPassword()));
+            else
+                _authManager.AdminLogin(tfLogin.getText(), Arrays.toString(pfPass.getPassword()));
         } catch (RepositoryException ex) {
             Logger.getLogger(FLogin.class.getName()).log(Level.SEVERE, null, ex);
             lErrorMessage.setText("can't connect to db");
@@ -102,13 +116,25 @@ public class FLogin extends javax.swing.JFrame {
             return;
         }
         dispose();
-        JFrame fOverview = new FOverview();
-        fOverview.setLocationRelativeTo(null);
-        fOverview.setVisible(true);
+        if (!cbAdminInterface.isSelected()) {
+            JFrame fOverview = new FOverview();
+            fOverview.setLocationRelativeTo(null);
+            fOverview.setVisible(true);
+        } else {
+            JFrame fAdminOverview = new FAdminOverview();
+            fAdminOverview.setLocationRelativeTo(null);
+            fAdminOverview.setVisible(true);
+        }
+        
     }//GEN-LAST:event_btnEnterActionPerformed
+
+    private void cbAdminInterfaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAdminInterfaceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbAdminInterfaceActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnter;
+    private javax.swing.JCheckBox cbAdminInterface;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lErrorMessage;

@@ -1,7 +1,7 @@
 package eventmaker.ui.company;
 
 import eventmaker.data.Company;
-import eventmaker.logic.managers.CompanyManager;
+import eventmaker.service.CompanyService;
 import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.ui.FOverview;
 
@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 public class FCompanyCreate extends javax.swing.JFrame {
     
-    private final CompanyManager _cmpManager = new CompanyManager();
+    private final CompanyService _cmpManager = new CompanyService();
     
     private final FOverview _ctx;
 

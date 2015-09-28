@@ -16,6 +16,10 @@ public class EventTableModel extends AbstractTableModel {
         this.data = data;
     }
     
+    public Event getByIndex(int index) {
+        return data.get(index);
+    }
+    
     @Override
     public int getRowCount() {
         return data.size();

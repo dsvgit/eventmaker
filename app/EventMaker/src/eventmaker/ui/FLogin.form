@@ -26,12 +26,13 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="cbAdminInterface" min="-2" max="-2" attributes="0"/>
                   <Component id="pfPass" min="-2" pref="119" max="-2" attributes="0"/>
                   <Component id="tfLogin" alignment="0" min="-2" pref="119" max="-2" attributes="0"/>
                   <Component id="lErrorMessage" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnEnter" alignment="0" min="-2" pref="119" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEnter" alignment="0" min="-2" pref="119" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -48,6 +49,8 @@
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="pfPass" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="cbAdminInterface" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lErrorMessage" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -85,6 +88,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Login"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cbAdminInterface">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Admin interface"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbAdminInterfaceActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

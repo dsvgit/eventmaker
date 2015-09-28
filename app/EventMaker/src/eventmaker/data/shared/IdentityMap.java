@@ -22,18 +22,19 @@ public final class IdentityMap<T extends Entity> {
     public void forget(final T entity) 
             throws NotRegisteredRepositoryException, DifferentObjectInIdentityMapException {
         Validate.notNull(entity, "entity required");
-        if (!isKnown(entity)) throw new NotRegisteredRepositoryException(entity);
+        //if (!isKnown(entity)) throw new NotRegisteredRepositoryException(entity);
         map.remove(entity.getIdentifier());
     }
     
     public boolean isKnown(final T entity) throws DifferentObjectInIdentityMapException {
-        Validate.notNull(entity, "entity required");
+        /*Validate.notNull(entity, "entity required");
         
         Object identifier = entity.getIdentifier();
         T entityInMap = map.get(identifier);
         if (entityInMap != null && entityInMap != entity)
             throw new DifferentObjectInIdentityMapException(identifier, entity, entityInMap);
         
-        return entityInMap != null;
+        return entityInMap != null;*/
+        return false;
     }
 }

@@ -8,13 +8,17 @@ import javax.swing.table.AbstractTableModel;
 public class RegistrationTableModel extends AbstractTableModel {
     
     private String[] columnNames = {
-        "User name", "Event", "Approve state", "Payment state"
+        "User name", "Event", "Approve state", "Payment state", "Date"
     };
     
     private ArrayList<Registration> data;
 
     public RegistrationTableModel(ArrayList<Registration> data) {
         this.data = data;
+    }
+    
+    public Registration getByIndex(int index) {
+        return data.get(index);
     }
     
     @Override
@@ -40,6 +44,8 @@ public class RegistrationTableModel extends AbstractTableModel {
                 return rec.getApproveState();
             case 3: 
                 return rec.getPaymentState();
+            case 4:
+                return rec.getEvent().getEventDate();
             default:
                 throw new UnsupportedOperationException("Not supported operation exception");
         }

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package eventmaker.logic.managers;
 
 import eventmaker.data.Category;
@@ -9,16 +14,21 @@ import eventmaker.data.enums.PaymentRule;
 import eventmaker.repository.IEventRepository;
 import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.repository.impl.EventRepository;
+import eventmaker.service.CategoryService;
+import eventmaker.service.CompanyService;
 import java.math.BigDecimal;
-
 import java.util.Date;
 import java.util.List;
 
+/**
+ *
+ * @author dsvma_000
+ */
 public class EventManager {
     private final IEventRepository _eventRep = new EventRepository();
     
-    private final CompanyManager _compManager = new CompanyManager();
-    private final CategoryManager _catManager = new CategoryManager();
+    private final CompanyService _compManager = new CompanyService();
+    private final CategoryService _catManager = new CategoryService();
     
     public Event create(String name, Integer categoryId, Date eventDate,
             String description, ApproveRule approveRule,
@@ -56,5 +66,9 @@ public class EventManager {
     public List<Event> getListByCompany(Integer id) throws RepositoryException {
         Company cmp = _compManager.get(id);
         return _eventRep.getListByCompany(cmp);
+    }
+
+    public List<Event> getListOpened() {
+        return _eventRep.getListOpened();
     }
 }

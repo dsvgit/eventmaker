@@ -38,7 +38,9 @@ public abstract class RepositoryBase<T extends Entity, ID extends Serializable> 
     
     protected void update(T entity) {
         Session session = sessFact.openSession();
+        org.hibernate.Transaction tr = session.beginTransaction();
         session.update(entity);
+        tr.commit();
         session.close();
     }
     

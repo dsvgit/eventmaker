@@ -53,7 +53,7 @@ public abstract class Repository<T extends Entity, ID extends Serializable> exte
         Validate.notNull(entity, "entity required");
         
         try {
-            if (identityMap.isKnown(entity)) {
+            if (entity.getIdentifier() != null && (identityMap.isKnown(entity) || get(entity.getIdentifier()) != null)) {
                 Object oldIdentifier = entity.getIdentifier();
                 update(entity);
                 assert oldIdentifier.equals(entity.getIdentifier()) : "identificator can't be modified";

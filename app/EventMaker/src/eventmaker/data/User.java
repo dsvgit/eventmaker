@@ -26,15 +26,27 @@ public class User extends Entity {
     
     @Column(name="info")
     private String info;
+    
+    @Column(name="is_admin")
+    private Boolean isAdmin;
+
+    public Boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void changeAdminState(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String login, String info) {
+    public User(String firstName, String lastName, String login, String info, Boolean isAdmin) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.info = info;
+        this.isAdmin = isAdmin;
     }
 
     public Integer getId() {

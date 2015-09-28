@@ -10,4 +10,8 @@ public interface IRegistrationRepository extends IRepository<Registration> {
     List<Registration> getByEvent(Event event);
 
     public List<Registration> getByUser(User user);
+
+    public Registration getByUserAndEvent(User user, Integer eventId);
+
+    public List<Registration> getToAdminConfirmation();
 }

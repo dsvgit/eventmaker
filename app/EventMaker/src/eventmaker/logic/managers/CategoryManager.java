@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package eventmaker.logic.managers;
 
 import eventmaker.data.Category;
@@ -6,6 +11,10 @@ import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.repository.impl.CategoryRepository;
 import java.util.List;
 
+/**
+ *
+ * @author dsvma_000
+ */
 public class CategoryManager {
     private final ICategoryRepository _catRep = new CategoryRepository();
     

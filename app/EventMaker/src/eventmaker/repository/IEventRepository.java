@@ -8,5 +8,7 @@ import java.util.List;
 public interface IEventRepository extends IRepository<Event> {
 
     List<Event> getListByCompany(Company cmp);
+
+    public List<Event> getListOpened();
     
 }

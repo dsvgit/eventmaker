@@ -1,12 +1,13 @@
 package eventmaker.ui;
 
-import eventmaker.logic.managers.RegistrationManager;
+import eventmaker.service.RegistrationService;
 import eventmaker.data.Event;
 import eventmaker.data.Registration;
 import eventmaker.data.User;
-import eventmaker.logic.managers.CompanyManager;
-import eventmaker.logic.managers.EventManager;
-import eventmaker.logic.managers.UserManager;
+import eventmaker.logic.identity.UserAuthorizationException;
+import eventmaker.service.CompanyService;
+import eventmaker.service.EventService;
+import eventmaker.service.UserService;
 import eventmaker.logic.models.VCompany;
 import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.ui.company.FCompanyCreate;
@@ -29,12 +30,15 @@ import javax.swing.event.ListSelectionEvent;
 
 public class FOverview extends javax.swing.JFrame {
     
-    private final CompanyManager _cmpManager = new CompanyManager();
-    private final EventManager _evManager = new EventManager();
-    private final UserManager _userManager = new UserManager();
-    private final RegistrationManager _regManager = new RegistrationManager();
+    private final CompanyService _cmpManager = new CompanyService();
+    private final EventService _evManager = new EventService();
+    private final UserService _userManager = new UserService();
+    private final RegistrationService _regManager = new RegistrationService();
     
     private UserTableModel _userTableModel;
+    private EventTableModel _openedEventsTableModel;
+    private RegistrationTableModel _regsInOwnedEventsTableModel;
+    private RegistrationTableModel _regsWhereIGoTableModel;
 
     public FOverview() {
         init();
@@ -133,15 +137,26 @@ public class FOverview extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableRegs = new javax.swing.JTable();
+        jPanel15 = new javax.swing.JPanel();
+        btnConfirm = new javax.swing.JButton();
+        btnDecline = new javax.swing.JButton();
+        btnApprovePayment = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btnRegisterUser = new javax.swing.JButton();
-        btnUnregisterUser = new javax.swing.JButton();
+        cbCompaniesInRegs = new javax.swing.JComboBox();
         jPanel7 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableWhereIGo = new javax.swing.JTable();
         jPanel11 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnUserApprove = new javax.swing.JButton();
+        btnPay = new javax.swing.JButton();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        btnClaim = new javax.swing.JButton();
+        jPanel14 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tableOpenedEvents = new javax.swing.JTable();
         mbMain = new javax.swing.JMenuBar();
         mFile = new javax.swing.JMenu();
         miExit = new javax.swing.JMenuItem();
@@ -196,7 +211,7 @@ public class FOverview extends javax.swing.JFrame {
         );
         panelOverviewLayout.setVerticalGroup(
             panelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(companyView, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+            .addComponent(companyView, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelRigthLayout = new javax.swing.GroupLayout(panelRigth);
@@ -225,7 +240,7 @@ public class FOverview extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 341, Short.MAX_VALUE)
+            .addGap(0, 401, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(6, 6, 6)
@@ -314,7 +329,7 @@ public class FOverview extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelCategoriesLayout = new javax.swing.GroupLayout(panelCategories);
@@ -367,6 +382,12 @@ public class FOverview extends javax.swing.JFrame {
 
         jLabel2.setText("Event");
 
+        cbEvents.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEventsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -403,20 +424,69 @@ public class FOverview extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tableRegs);
 
+        btnConfirm.setText("Confirm");
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmActionPerformed(evt);
+            }
+        });
+
+        btnDecline.setText("Decline");
+        btnDecline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeclineActionPerformed(evt);
+            }
+        });
+
+        btnApprovePayment.setText("Approve payment");
+        btnApprovePayment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApprovePaymentActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnConfirm)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDecline)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnApprovePayment)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConfirm)
+                    .addComponent(btnDecline)
+                    .addComponent(btnApprovePayment))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -450,7 +520,11 @@ public class FOverview extends javax.swing.JFrame {
             }
         });
 
-        btnUnregisterUser.setText("Delete user");
+        cbCompaniesInRegs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCompaniesInRegsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -460,8 +534,8 @@ public class FOverview extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnRegisterUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnUnregisterUser)
-                .addContainerGap(388, Short.MAX_VALUE))
+                .addComponent(cbCompaniesInRegs, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -469,7 +543,7 @@ public class FOverview extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegisterUser)
-                    .addComponent(btnUnregisterUser))
+                    .addComponent(cbCompaniesInRegs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -480,7 +554,7 @@ public class FOverview extends javax.swing.JFrame {
             .addGroup(panelUsersLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(spUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -490,11 +564,11 @@ public class FOverview extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                .addComponent(spUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        tpMainArea.addTab("Users", panelUsers);
+        tpMainArea.addTab("Registrations", panelUsers);
 
         tableWhereIGo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -509,7 +583,19 @@ public class FOverview extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(tableWhereIGo);
 
-        jButton1.setText("Approve");
+        btnUserApprove.setText("Approve");
+        btnUserApprove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserApproveActionPerformed(evt);
+            }
+        });
+
+        btnPay.setText("Pay it");
+        btnPay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPayActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -517,14 +603,18 @@ public class FOverview extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(btnUserApprove)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPay)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUserApprove)
+                    .addComponent(btnPay))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -545,7 +635,7 @@ public class FOverview extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -567,6 +657,83 @@ public class FOverview extends javax.swing.JFrame {
         );
 
         tpMainArea.addTab("Where i go", jPanel7);
+
+        btnClaim.setText("Claim");
+        btnClaim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClaimActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnClaim)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnClaim)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tableOpenedEvents.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(tableOpenedEvents);
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        tpMainArea.addTab("Find events", jPanel12);
 
         mFile.setText("File");
 
@@ -598,7 +765,7 @@ public class FOverview extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tpMainArea, javax.swing.GroupLayout.PREFERRED_SIZE, 365, Short.MAX_VALUE)
+            .addComponent(tpMainArea, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
         );
 
         pack();
@@ -636,6 +803,7 @@ public class FOverview extends javax.swing.JFrame {
         JFrame fEventCreate = new FEventCreate(this);
         fEventCreate.setLocationRelativeTo(null);
         fEventCreate.setVisible(true);
+        RerenderEvents();
     }//GEN-LAST:event_btnCreateEventActionPerformed
 
     private void btnRegisterUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterUserActionPerformed
@@ -651,21 +819,108 @@ public class FOverview extends javax.swing.JFrame {
         RerenderWhereIGo();
     }//GEN-LAST:event_btnRegisterUserActionPerformed
 
+    private void btnUserApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserApproveActionPerformed
+        Registration reg = _regsWhereIGoTableModel.getByIndex(tableWhereIGo.getSelectedRow());
+        try {
+            _regManager.UserApprove(reg);
+        } catch (RepositoryException ex) {
+            Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        RerenderRegistrations();
+        RerenderWhereIGo();
+    }//GEN-LAST:event_btnUserApproveActionPerformed
+
+    private void btnClaimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClaimActionPerformed
+        Event event = _openedEventsTableModel.getByIndex(tableOpenedEvents.getSelectedRow());
+        try {
+            _regManager.claimCurrentUser(event.getId());
+        } catch (RepositoryException | UserAuthorizationException ex) {
+            Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        RerenderRegistrations();
+        RerenderWhereIGo();
+    }//GEN-LAST:event_btnClaimActionPerformed
+
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        Registration reg = _regsInOwnedEventsTableModel.getByIndex(tableRegs.getSelectedRow());
+        try {
+            _regManager.confirmRegistration(reg);
+        } catch (RepositoryException ex) {
+            Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        RerenderRegistrations();
+        RerenderWhereIGo();
+        RerenderEvents();
+    }//GEN-LAST:event_btnConfirmActionPerformed
+
+    private void btnDeclineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeclineActionPerformed
+        Registration reg = _regsInOwnedEventsTableModel.getByIndex(tableRegs.getSelectedRow());
+        try {
+            _regManager.declineRegistration(reg);
+        } catch (RepositoryException ex) {
+            Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        RerenderRegistrations();
+        RerenderWhereIGo();
+        RerenderEvents();
+    }//GEN-LAST:event_btnDeclineActionPerformed
+
+    private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
+        Registration reg = _regsWhereIGoTableModel.getByIndex(tableWhereIGo.getSelectedRow());
+        try {
+            _regManager.userPayEvent(reg);
+        } catch (RepositoryException ex) {
+            Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        RerenderRegistrations();
+        RerenderWhereIGo();
+        RerenderEvents();
+    }//GEN-LAST:event_btnPayActionPerformed
+
+    private void btnApprovePaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApprovePaymentActionPerformed
+        Registration reg = _regsInOwnedEventsTableModel.getByIndex(tableRegs.getSelectedRow());
+        try {
+            _regManager.organizerConfirm(reg);
+        } catch (RepositoryException ex) {
+            Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        RerenderRegistrations();
+        RerenderWhereIGo();
+        RerenderEvents();
+    }//GEN-LAST:event_btnApprovePaymentActionPerformed
+
+    private void cbEventsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEventsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbEventsActionPerformed
+
+    private void cbCompaniesInRegsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCompaniesInRegsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCompaniesInRegsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApprovePayment;
+    private javax.swing.JButton btnClaim;
+    private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnCreateCompany;
     private javax.swing.JButton btnCreateEvent;
+    private javax.swing.JButton btnDecline;
     private javax.swing.JButton btnDeleteCompany;
+    private javax.swing.JButton btnPay;
     private javax.swing.JButton btnRegisterUser;
-    private javax.swing.JButton btnUnregisterUser;
+    private javax.swing.JButton btnUserApprove;
     private javax.swing.JComboBox cbCompanies;
+    private javax.swing.JComboBox cbCompaniesInRegs;
     private javax.swing.JComboBox cbEvents;
     private eventmaker.ui.company.PCompany companyView;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -678,6 +933,7 @@ public class FOverview extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JList listCompanies;
     private javax.swing.JMenu mExit;
     private javax.swing.JMenu mFile;
@@ -692,6 +948,7 @@ public class FOverview extends javax.swing.JFrame {
     private javax.swing.JScrollPane spCompaniesSidebar;
     private javax.swing.JSplitPane spUsers;
     private javax.swing.JTable tableEvents;
+    private javax.swing.JTable tableOpenedEvents;
     private javax.swing.JTable tableRegs;
     private javax.swing.JTable tableUsers;
     private javax.swing.JTable tableWhereIGo;
@@ -737,10 +994,11 @@ public class FOverview extends javax.swing.JFrame {
         List<Registration> regs;
         try {
             regs = _regManager.getByCurrentUser();
-            tableWhereIGo.setModel(new RegistrationTableModel((ArrayList<Registration>) regs));
+            _regsWhereIGoTableModel = new RegistrationTableModel((ArrayList<Registration>) regs);
+            tableWhereIGo.setModel(_regsWhereIGoTableModel);
         } catch (RepositoryException ex) {
             Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
     
     private void RerenderRegistrations() {
@@ -749,7 +1007,8 @@ public class FOverview extends javax.swing.JFrame {
         List<Registration> regs;
         try {
             regs = _regManager.getListByEvent(event.getId());
-            tableRegs.setModel(new RegistrationTableModel((ArrayList<Registration>) regs));
+            _regsInOwnedEventsTableModel = new RegistrationTableModel((ArrayList<Registration>) regs);
+            tableRegs.setModel(_regsInOwnedEventsTableModel);
         } catch (RepositoryException ex) {
             Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -768,15 +1027,21 @@ public class FOverview extends javax.swing.JFrame {
     
     private void RerenderEvents() {
         VCompany cmp = (VCompany) cbCompanies.getSelectedItem();
+        VCompany cmpInRegs = (VCompany) cbCompaniesInRegs.getSelectedItem();
         if (cmp == null) return;
-        List<Event> events;
-        List<Event> allEvents;
+        List<Event> myEvents;
+        List<Event> ownedEvents;
+        List<Event> openedEvents;
         try {
-            events = _evManager.getListByCompany(cmp.id);
-            tableEvents.setModel(new EventTableModel((ArrayList<Event>) events));
+            openedEvents = _evManager.getListOpened();
+            _openedEventsTableModel = new EventTableModel((ArrayList<Event>) openedEvents);
+            tableOpenedEvents.setModel(_openedEventsTableModel);
             
-            allEvents = _evManager.getList();
-            Event[] allEventsArray = allEvents.toArray(new Event[allEvents.size()]);
+            myEvents = _evManager.getListByCompany(cmp.id);
+            tableEvents.setModel(new EventTableModel((ArrayList<Event>) myEvents));
+            
+            ownedEvents = _evManager.getListByCompany(cmpInRegs.id);
+            Event[] allEventsArray = ownedEvents.toArray(new Event[ownedEvents.size()]);
             DefaultComboBoxModel<Event> eventComboboxModel = new DefaultComboBoxModel<>(allEventsArray);
             cbEvents.setModel(eventComboboxModel);
         } catch (RepositoryException ex) {
@@ -786,14 +1051,15 @@ public class FOverview extends javax.swing.JFrame {
     
     private void RerenderCompanies() {
         try {
-            List<VCompany> companies = _cmpManager.getList();
+            List<VCompany> companies = _cmpManager.getListCurrent();
             CompaniesListModel companiesListModel = new CompaniesListModel(companies);
             listCompanies.setModel(companiesListModel);
             
             VCompany[] companiesArray = companies.toArray(new VCompany[companies.size()]);
             DefaultComboBoxModel<VCompany> comboboxModel = new DefaultComboBoxModel<>(companiesArray);
             cbCompanies.setModel(comboboxModel);
-        } catch (RepositoryException ex) {
+            cbCompaniesInRegs.setModel(comboboxModel);
+        } catch (RepositoryException | UserAuthorizationException ex) {
             Logger.getLogger(FOverview.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
