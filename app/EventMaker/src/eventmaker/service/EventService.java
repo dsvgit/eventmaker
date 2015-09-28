@@ -4,7 +4,7 @@ import eventmaker.data.Event;
 import eventmaker.data.enums.ApproveRule;
 import eventmaker.data.enums.Availability;
 import eventmaker.data.enums.PaymentRule;
-import eventmaker.logic.managers.EventManager;
+import eventmaker.logic.transactionScripts.EventTransactionScripts;
 import eventmaker.repository.exceptions.RepositoryException;
 import java.math.BigDecimal;
 
@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 public class EventService {
-    EventManager _evManager = new EventManager();
+    EventTransactionScripts _evManager = new EventTransactionScripts();
     
     public Event create(String name, Integer categoryId, Date eventDate,
             String description, ApproveRule approveRule,

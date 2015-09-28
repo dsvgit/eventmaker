@@ -1,13 +1,13 @@
 package eventmaker.service;
 
 import eventmaker.data.User;
-import eventmaker.logic.managers.UserManager;
+import eventmaker.logic.transactionScripts.UserTransactionScripts;
 import eventmaker.repository.exceptions.RepositoryException;
 
 import java.util.List;
 
 public class UserService {
-    UserManager _uManager = new UserManager();
+    UserTransactionScripts _uManager = new UserTransactionScripts();
     
     public User create(String firstName, String lastName, String login, String info) throws RepositoryException {
         return _uManager.create(firstName, lastName, login, info);

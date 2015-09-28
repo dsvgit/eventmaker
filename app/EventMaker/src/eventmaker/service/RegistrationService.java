@@ -3,13 +3,13 @@ package eventmaker.service;
 import eventmaker.data.Registration;
 import eventmaker.data.User;
 import eventmaker.logic.identity.UserAuthorizationException;
-import eventmaker.logic.managers.RegistrationManager;
+import eventmaker.logic.transactionScripts.RegistrationTransactionScripts;
 import eventmaker.repository.exceptions.RepositoryException;
 
 import java.util.List;
 
 public class RegistrationService {
-    RegistrationManager _regManager = new RegistrationManager();
+    RegistrationTransactionScripts _regManager = new RegistrationTransactionScripts();
     
     public List<Registration> getList() throws RepositoryException {
         return _regManager.getList();

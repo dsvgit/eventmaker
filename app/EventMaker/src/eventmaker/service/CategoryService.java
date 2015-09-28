@@ -1,12 +1,12 @@
 package eventmaker.service;
 
 import eventmaker.data.Category;
-import eventmaker.logic.managers.CategoryManager;
+import eventmaker.logic.transactionScripts.CategoryTransactionScripts;
 import eventmaker.repository.exceptions.RepositoryException;
 import java.util.List;
 
 public class CategoryService {
-    CategoryManager _catManager = new CategoryManager();
+    CategoryTransactionScripts _catManager = new CategoryTransactionScripts();
     
     public Category create(String name) throws RepositoryException {
         return _catManager.create(name);

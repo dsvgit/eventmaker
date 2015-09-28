@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eventmaker.logic.managers;
+package eventmaker.logic.transactionScripts;
 
 import eventmaker.data.Category;
 import eventmaker.repository.ICategoryRepository;
@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author dsvma_000
  */
-public class CategoryManager {
+public class CategoryTransactionScripts {
     private final ICategoryRepository _catRep = new CategoryRepository();
     
     public Category create(String name) throws RepositoryException {

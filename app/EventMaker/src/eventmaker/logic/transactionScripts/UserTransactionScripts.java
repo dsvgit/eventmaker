@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eventmaker.logic.managers;
+package eventmaker.logic.transactionScripts;
 
 import eventmaker.data.User;
 import eventmaker.repository.IUserRepository;
@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author dsvma_000
  */
-public class UserManager {
+public class UserTransactionScripts {
     private final IUserRepository _userRep = new UserRepository();
     
     public User create(String firstName, String lastName, String login, String info) throws RepositoryException {

@@ -5,6 +5,8 @@
  */
 package eventmaker.logic.managers;
 
+import eventmaker.logic.transactionScripts.CategoryTransactionScripts;
+import eventmaker.logic.transactionScripts.AuthorizationTransactionScripts;
 import eventmaker.data.Category;
 import eventmaker.logic.identity.UserAuthorizationException;
 import eventmaker.repository.exceptions.RepositoryException;
@@ -22,7 +24,7 @@ import static org.junit.Assert.*;
 public class CategoryManagerTest {
     
     public CategoryManagerTest() throws RepositoryException, UserAuthorizationException {
-        new AuthorizationManager().Login("admin", "admin");
+        new AuthorizationTransactionScripts().Login("admin", "admin");
     }
     
     @BeforeClass
@@ -40,7 +42,7 @@ public class CategoryManagerTest {
     public void testCreate() throws Exception, RepositoryException {
         System.out.println("create");
         String name = "";
-        CategoryManager instance = new CategoryManager();
+        CategoryTransactionScripts instance = new CategoryTransactionScripts();
         Category expResult = new Category("category");
         Category result = instance.create("category");
         assertEquals(expResult.getName(), result.getName());
@@ -53,7 +55,7 @@ public class CategoryManagerTest {
     public void testGet() throws Exception, RepositoryException {
         System.out.println("get");
         Integer id = 1;
-        CategoryManager instance = new CategoryManager();
+        CategoryTransactionScripts instance = new CategoryTransactionScripts();
         Category expResult = new Category("conference");
         Category result = instance.get(id);
         assertEquals(expResult.getName(), result.getName());
@@ -65,7 +67,7 @@ public class CategoryManagerTest {
     @Test
     public void testGetList() throws Exception, RepositoryException {
         System.out.println("getList");
-        CategoryManager instance = new CategoryManager();
+        CategoryTransactionScripts instance = new CategoryTransactionScripts();
         List<Category> expResult = new ArrayList<Category>();
         List<Category> result = instance.getList();
         assertTrue(result.size() > 0);

@@ -5,6 +5,7 @@
  */
 package eventmaker.logic.managers;
 
+import eventmaker.logic.transactionScripts.AuthorizationTransactionScripts;
 import eventmaker.logic.identity.UserAuthorizationException;
 import eventmaker.repository.exceptions.RepositoryException;
 import org.junit.AfterClass;
@@ -18,7 +19,7 @@ import org.junit.Test;
 public class AuthorizationManagerTest {
     
     public AuthorizationManagerTest() throws RepositoryException, UserAuthorizationException {
-        new AuthorizationManager().Login("admin", "admin");
+        new AuthorizationTransactionScripts().Login("admin", "admin");
     }
     
     @BeforeClass
@@ -37,7 +38,7 @@ public class AuthorizationManagerTest {
         System.out.println("Login");
         String login = "admin";
         String password = "admin";
-        AuthorizationManager instance = new AuthorizationManager();
+        AuthorizationTransactionScripts instance = new AuthorizationTransactionScripts();
         instance.Login(login, password);
         
     }
@@ -50,7 +51,7 @@ public class AuthorizationManagerTest {
         System.out.println("AdminLogin");
         String login = "admin";
         String password = "admin";
-        AuthorizationManager instance = new AuthorizationManager();
+        AuthorizationTransactionScripts instance = new AuthorizationTransactionScripts();
         instance.AdminLogin(login, password);
         
     }

@@ -3,13 +3,13 @@ package eventmaker.service;
 import eventmaker.repository.exceptions.RepositoryException;
 import eventmaker.data.Company;
 import eventmaker.logic.identity.UserAuthorizationException;
-import eventmaker.logic.managers.CompanyManager;
+import eventmaker.logic.transactionScripts.CompanyTransactionScripts;
 import eventmaker.logic.models.VCompany;
 
 import java.util.List;
 
 public class CompanyService {
-    CompanyManager _compManager = new CompanyManager();
+    CompanyTransactionScripts _compManager = new CompanyTransactionScripts();
     
     public Company create(String name, String description) throws RepositoryException {
         return _compManager.create(name, description);

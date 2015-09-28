@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eventmaker.logic.managers;
+package eventmaker.logic.transactionScripts;
 
 import eventmaker.data.Category;
 import eventmaker.data.Company;
@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author dsvma_000
  */
-public class EventManager {
+public class EventTransactionScripts {
     private final IEventRepository _eventRep = new EventRepository();
     
     private final CompanyService _compManager = new CompanyService();

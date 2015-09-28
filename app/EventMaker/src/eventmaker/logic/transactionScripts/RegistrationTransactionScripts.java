@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eventmaker.logic.managers;
+package eventmaker.logic.transactionScripts;
 
 import eventmaker.data.Event;
 import eventmaker.data.Registration;
@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  *
  * @author dsvma_000
  */
-public class RegistrationManager {
+public class RegistrationTransactionScripts {
     private final IRegistrationRepository _regsRepository = new RegistrationRepository();
     private final EventService _evManager = new EventService();
     private final UserService _userManager = new UserService();

@@ -5,6 +5,7 @@
  */
 package eventmaker.logic.managers;
 
+import eventmaker.logic.transactionScripts.AuthorizationTransactionScripts;
 import eventmaker.data.Company;
 import eventmaker.logic.identity.UserAuthorizationException;
 import eventmaker.logic.models.VCompany;
@@ -22,7 +23,7 @@ import static org.junit.Assert.*;
 public class CompanyManagerTest {
     
     public CompanyManagerTest() throws RepositoryException, UserAuthorizationException {
-        new AuthorizationManager().Login("admin", "admin");
+        new AuthorizationTransactionScripts().Login("admin", "admin");
     }
     
     @BeforeClass

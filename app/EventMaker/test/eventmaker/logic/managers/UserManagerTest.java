@@ -5,6 +5,8 @@
  */
 package eventmaker.logic.managers;
 
+import eventmaker.logic.transactionScripts.UserTransactionScripts;
+import eventmaker.logic.transactionScripts.AuthorizationTransactionScripts;
 import eventmaker.data.User;
 import eventmaker.logic.identity.UserAuthorizationException;
 import eventmaker.repository.exceptions.RepositoryException;
@@ -21,7 +23,7 @@ import static org.junit.Assert.*;
 public class UserManagerTest {
     
     public UserManagerTest() throws RepositoryException, UserAuthorizationException {
-        new AuthorizationManager().Login("admin", "admin");
+        new AuthorizationTransactionScripts().Login("admin", "admin");
     }
     
     @BeforeClass
@@ -42,7 +44,7 @@ public class UserManagerTest {
         String lastName = "";
         String login = "admin";
         String info = "";
-        UserManager instance = new UserManager();
+        UserTransactionScripts instance = new UserTransactionScripts();
         User expResult = new User();
         expResult.setLogin("admin");
         User result = instance.create(firstName, lastName, login, info);
@@ -56,7 +58,7 @@ public class UserManagerTest {
     public void testGet() throws Exception, RepositoryException {
         System.out.println("get");
         Integer id = 1;
-        UserManager instance = new UserManager();
+        UserTransactionScripts instance = new UserTransactionScripts();
         User expResult = null;
         User result = instance.get(id);
         assertTrue(result != null);
@@ -69,7 +71,7 @@ public class UserManagerTest {
     public void testGetUserByName() throws Exception, RepositoryException {
         System.out.println("getUserByName");
         String name = "admin";
-        UserManager instance = new UserManager();
+        UserTransactionScripts instance = new UserTransactionScripts();
         User expResult = null;
         User result = instance.getUserByName(name);
         assertTrue(result != null);
@@ -81,7 +83,7 @@ public class UserManagerTest {
     @Test
     public void testGetList() throws Exception, RepositoryException {
         System.out.println("getList");
-        UserManager instance = new UserManager();
+        UserTransactionScripts instance = new UserTransactionScripts();
         List<User> expResult = null;
         List<User> result = instance.getList();
         assertTrue(result.size() > 0);

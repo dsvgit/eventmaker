@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eventmaker.logic.managers;
+package eventmaker.logic.transactionScripts;
 
 import eventmaker.dao.CompanyDAO;
 import eventmaker.data.Company;
@@ -15,7 +15,6 @@ import eventmaker.logic.models.CompanyMapper;
 import eventmaker.logic.models.VCompany;
 import eventmaker.repository.ICompanyRepository;
 import eventmaker.repository.exceptions.RepositoryException;
-import eventmaker.repository.impl.CompanyRepository;
 import eventmaker.service.CompanyService;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.logging.Logger;
  *
  * @author dsvma_000
  */
-public class CompanyManager {
+public class CompanyTransactionScripts {
     private final ICompanyRepository _compRep = new CompanyDAO();
     private final IIdentity _identity = Identity.getInstance();
     private final CompanyMapper _mapper = new CompanyMapper();

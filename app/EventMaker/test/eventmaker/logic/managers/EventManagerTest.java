@@ -5,6 +5,8 @@
  */
 package eventmaker.logic.managers;
 
+import eventmaker.logic.transactionScripts.AuthorizationTransactionScripts;
+import eventmaker.logic.transactionScripts.EventTransactionScripts;
 import eventmaker.data.Event;
 import eventmaker.data.enums.ApproveRule;
 import eventmaker.data.enums.Availability;
@@ -26,7 +28,7 @@ import static org.junit.Assert.*;
 public class EventManagerTest {
     
     public EventManagerTest() throws RepositoryException, UserAuthorizationException {
-        new AuthorizationManager().Login("admin", "admin");
+        new AuthorizationTransactionScripts().Login("admin", "admin");
     }
     
     @BeforeClass
@@ -52,7 +54,7 @@ public class EventManagerTest {
         Availability availability = null;
         BigDecimal cost = null;
         Integer companyId = 1;
-        EventManager instance = new EventManager();
+        EventTransactionScripts instance = new EventTransactionScripts();
         Event expResult = new Event();
         expResult.setName("event");
         Event result = instance.create(name, categoryId, eventDate, description, approveRule, paymentRule, availability, cost, companyId);
@@ -66,7 +68,7 @@ public class EventManagerTest {
     public void testGet() throws Exception, RepositoryException {
         System.out.println("get");
         Integer id = 1;
-        EventManager instance = new EventManager();
+        EventTransactionScripts instance = new EventTransactionScripts();
         Event expResult = null;
         Event result = instance.get(id);
         assertFalse(result == null);
@@ -78,7 +80,7 @@ public class EventManagerTest {
     @Test
     public void testGetList() throws Exception, RepositoryException {
         System.out.println("getList");
-        EventManager instance = new EventManager();
+        EventTransactionScripts instance = new EventTransactionScripts();
         List<Event> expResult = null;
         List<Event> result = instance.getList();
         assertTrue(result.size() > 0);
@@ -91,7 +93,7 @@ public class EventManagerTest {
     public void testGetListByCompany() throws Exception, RepositoryException {
         System.out.println("getListByCompany");
         Integer id = 1;
-        EventManager instance = new EventManager();
+        EventTransactionScripts instance = new EventTransactionScripts();
         List<Event> expResult = null;
         List<Event> result = instance.getListByCompany(id);
         assertTrue(result.size() > 0);
@@ -103,7 +105,7 @@ public class EventManagerTest {
     @Test
     public void testGetListOpened() {
         System.out.println("getListOpened");
-        EventManager instance = new EventManager();
+        EventTransactionScripts instance = new EventTransactionScripts();
         List<Event> expResult = null;
         List<Event> result = instance.getListOpened();
         assertTrue(result.size() > 0);
